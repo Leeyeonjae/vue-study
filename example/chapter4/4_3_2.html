@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Chapter4</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Let's hear some stories!</h1>
+        <div>
+            <ul clas="list-group">
+                <li v-for="(story, index) in stories" :key="index" class="list-group-item">
+                    {{index}} {{story.writer}} said {{story.plot}}
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '.container',
+        data: {
+            stories: [
+                {
+                    plot: "I crashed my car today!",
+                    writer: "Alex"
+                },
+                {
+                    plot: "Yesterday, someone stole my bag!",
+                    writer: "John"
+                },
+                {
+                    plot: "Someone ate my chocolate...",
+                    writer: "John"
+                },
+                {
+                    plot: "I ate someone's chocolate!",
+                    writer: "Alex"
+                },
+            ]
+        },
+    });
+</script>
+</html>

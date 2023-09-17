@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Chapter4</title>
+</head>
+<body>
+    <div class="container">
+        <h1>The multiplication table of 4.</h1>
+        <ul clas="list-group">
+            <li v-for="i in 9" class="list-group-item">
+                {{ i }} times 4 equals {{ i*4 }}.
+            </li>
+        </ul>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '.container',
+    });
+</script>
+</html>
