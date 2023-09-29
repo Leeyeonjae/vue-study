@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Chapter6</title>
+</head>
+<body>
+<div class="container">
+    <h1>People of Gaul</h1>
+    <ul class="list-group">
+        <li v-for="(person, index) in orderedPeople()" :key="index" class="list-group-item">
+            {{person.name}} {{person.age}}
+        </li>
+    </ul>
+
+    <!-- Without using the computed property. -->
+    <h1>"Old" People of Gaul</h1>
+    <ul class="list-group">
+        <li v-for="(person, index) in old" :key="index" class="list-group-item">
+            {{person.name}} {{person.age}}
+        </li>
+    </ul>
+</div>
+</body>
+<script>
+    new Vue({
+        el: '.container',
+        data: {
+            people: [
+                {name: "Obelix", age: 33},
+                {name: "Asterix", age: 32},
+                {name: "Majestix", age: 82},
+                {name: "Methusalix", age: 103},
+                {name: "Julius Caesar", age: 66},
+            ]
+        },
+        methods: {
+            orderedPeople: function (){
+                return _.orderBy(this.people, 'age')
+            }
+        },
+        computed:{
+            old: function(){
+                return _.filter(this.people, person => person.age > 65)
+                /*return this.people.filter(function (person){
+                    return person.age > 65
+                })*/
+            }
+        }
+    });
+</script>
+</html>
