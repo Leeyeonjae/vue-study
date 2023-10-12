@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Chapter8</title>
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <h1>Chariot shopping</h1>
+            <div>
+                <ul class="list-group">
+                    <chariot v-for="(chariot, index) in chariots" :key="index" :chariot="chariot" :current="current" @select="updateChariot"></chariot>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- template for chariot-->
+<template id="chariot-template">
+    <li class="list-group-item">
+        <h4>"{{ chariot.name }}" chariot has <strong>{{ chariot.horses }}</strong> horse(s)!</h4>
+        <button @click="rideChariot(chariot)" class="btn btn-primary" :disabled="isCurrent"> {{ action }} </button>
+    </li>
+</template>
+
+<script>
+    Vue.component('chariot', {
+        template: '#chariot-template',
+        props: ['chariot', 'current'],
+        computed: {
+            isCurrent: function(){
+                return this.chariot === this.current
+            },
+            noChariot: function(){
+                return !this.current.name
+            },
+            hasMoreHorses: function(){
+                return this.current.horses < this.chariot.horses;
+            },
+            action: function () {
+                var action;
+
+                if(this.noChariot){
+                    action = 'Pick Chariot'
+                }else if(this.isCurrent){
+                    action = 'Riding!'
+                }else if(this.hasMoreHorses){
+                    action = 'Hire Horses'
+                }else {
+                    action = 'Dismiss Horeses'
+                }
+
+                return action;
+            }
+        },
+        methods: {
+            rideChariot: function (chariot){
+                this.$emit('select', chariot)
+            }
+        }
+    });
+
+    new Vue({
+        el: '#app',
+        data: {
+            chariots: [
+                {name: "Olympus", horses: 4},
+                {name: "Sagitta", horses: 3},
+                {name: "Icarus", horses: 2},
+                {name: "Abraxas", horses: 1},
+            ],
+            //the current 'chariot'
+            current: {}
+        },
+        methods: {
+            updateChariot: function(chariot){
+                this.current = chariot;
+            }
+        }
+    });
+</script>
+</html>
